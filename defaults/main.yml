@@ -1,0 +1,2 @@
+---
+remote_ssh_address: "ssh://{{ hostvars[app_name]['ansible_user'] }}@{{ hostvars[app_name]['ansible_host'] }}:{{ hostvars[app_name]['ansible_port'] }}"

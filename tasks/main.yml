@@ -1,0 +1,41 @@
+---
+- name: "create folders to receive app code"
+  file:
+    state: directory
+    path: "{{ app_name }}_{{ item }}"
+  with_items:
+    - production
+    - staging
+
+- name: "create folders to listen for git pushes"
+  file:
+    state: directory
+    path: "deployment_listeners/{{ app_name }}_{{ item }}"
+  with_items:
+    - production
+    - staging
+
+- name: "init bare git for app code folders"
+  command: "git init --bare"
+  args:
+    chdir: "deployment_listeners/{{ app_name }}_{{ item }}"
+  with_items:
+    - production
+    - staging
+
+# TODO inject variables into template file
+- name: "add post receive hook files"
+  template:
+    src: "{{ item }}_post-receive_githook.j2"
+    dest: "deployment_listeners/{{ app_name }}_{{ item }}/hooks/post-receive"
+    mode: "a+x"
+  with_items:
+    - production
+    - staging
+
+- name: "Show git remote addresses for deployment"
+  debug:
+    msg: "{{ item }} gitremote url => git remote add live "{{ remote_ssh_address }}/home/{{ ansible_user }}/deployment_listeners/{{ app_name }}_{{ item }}"\n"
+  with_items:
+    - production
+    - staging

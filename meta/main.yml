@@ -1,0 +1,19 @@
+galaxy_info:
+  author: Ruskin Constant
+  description: setup bare git repos with post receive hooks for a staging and live deployment
+  license: MIT
+  min_ansible_version: 1.2
+  platforms:
+  - name: Linux
+    versions:
+    - all
+  galaxy_tags:
+    - git
+    - githook
+    - server
+    - deploy
+    - deployment
+    - digitalocean
+
+dependencies:
+  - { role: geerlingguy.git, git_packages: git }
