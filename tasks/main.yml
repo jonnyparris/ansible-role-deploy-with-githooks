@@ -23,10 +23,9 @@
     - production
     - staging
 
-# TODO inject variables into template file
 - name: "add post receive hook files"
   template:
-    src: "{{ item }}_post-receive_githook.j2"
+    src: "post-receive_githook.j2"
     dest: "deployment_listeners/{{ app_name }}_{{ item }}/hooks/post-receive"
     mode: "a+x"
   with_items:
