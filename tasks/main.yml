@@ -34,7 +34,7 @@
 
 - name: "Show git remote addresses for deployment"
   debug:
-    msg: "{{ item }} gitremote url => git remote add live "{{ remote_ssh_address }}/home/{{ ansible_user }}/deployment_listeners/{{ app_name }}_{{ item }}"\n"
+    msg: "{{ item }} gitremote url => git remote add live \"{{ remote_ssh_address }}/home/{{ ansible_user }}/deployment_listeners/{{ app_name }}_{{ item }}\"\n"
   with_items:
     - production
     - staging
