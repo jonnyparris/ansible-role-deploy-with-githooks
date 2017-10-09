@@ -17,7 +17,7 @@
 
 - name: "init bare git for app code folders"
   become: yes
-  become_user: {{ ansible_user }}
+  become_user: "{{ ansible_user }}"
   command: "git init --bare"
   args:
     chdir: "deployment_listeners/{{ app_name }}_{{ item }}"
