@@ -1,5 +1,7 @@
 ---
 - name: "create folders to receive app code"
+  become: yes
+  become_user: "{{ ansible_user }}"
   file:
     state: directory
     path: "{{ app_name }}_{{ item }}"
@@ -8,6 +10,8 @@
     - staging
 
 - name: "create folders to listen for git pushes"
+  become: yes
+  become_user: "{{ ansible_user }}"
   file:
     state: directory
     path: "deployment_listeners/{{ app_name }}_{{ item }}"
@@ -36,7 +40,7 @@
 
 - name: "Show git remote addresses for deployment"
   debug:
-    msg: "{{ item }} gitremote url => git remote add {{ item }} '{{ remote_ssh_address }}/home/{{ ansible_user }}/deployment_listeners/{{ app_name }}_{{ item }}'"
+    msg: "{{ item }} gitremote url => git remote add {{ item }} {{ remote_ssh_address }}/home/{{ ansible_user }}/deployment_listeners/{{ app_name }}_{{ item }}"
   with_items:
     - production
     - staging
